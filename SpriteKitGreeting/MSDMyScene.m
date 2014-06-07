@@ -13,11 +13,14 @@
 @property (nonatomic) SKSpriteNode * player;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
+@property (nonatomic) SKLabelNode *score;
+@property int hitCount;
 
 @end
 
 static const uint32_t projectileCategory = 0x1 << 0;
 static const uint32_t monsterCategory = 0x1 << 1;
+static const uint32_t playerCategory = 0x1 << 2;
 
 static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
     return CGPointMake(a.x + b.x, a.y + b.y);
@@ -45,10 +48,25 @@ static inline CGPoint rwNormalize(CGPoint a) {
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
-        NSLog(@"Size: %@", NSStringFromCGSize(size));
+        //NSLog(@"Size: %@", NSStringFromCGSize(size));
+        self.hitCount = 0;
+        
+        self.score = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue"];
+        self.score.fontSize = 20;
+        self.score.fontColor = [SKColor greenColor];
+        self.score.text = [NSString stringWithFormat:@"Score: %i", self.hitCount];
+        self.score.position = CGPointMake(CGRectGetMaxX(self.frame) - 50, CGRectGetMidY(self.frame)/2);
+        [self addChild:self.score];
+        
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"player"];
+        self.player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.player.size];
+        self.player.physicsBody.dynamic = YES;
+        self.player.physicsBody.categoryBitMask = playerCategory;
+        self.player.physicsBody.contactTestBitMask = monsterCategory;
+        self.player.physicsBody.collisionBitMask = 0;
+        
         self.player.position = CGPointMake(self.player.size.width/2, self.frame.size.height/2);
         [self addChild:self.player];
         
@@ -148,6 +166,15 @@ static inline CGPoint rwNormalize(CGPoint a) {
     NSLog(@"HIT");
     [projectile removeFromParent];
     [monster removeFromParent];
+    self.hitCount++;
+    self.score.text = [NSString stringWithFormat:@"Score: %i", self.hitCount];
+    
+}
+
+- (void)collisionWithPlayer {
+    NSLog(@"Collided with player");
+    self.hitCount--;
+    self.score.text = [NSString stringWithFormat:@"Score: %i", self.hitCount];
 }
 
 - (void)didBeginContact:(SKPhysicsContact *)contact {
@@ -165,6 +192,9 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self projectile:(SKSpriteNode *) firstBody.node didCollideWithMonster:(SKSpriteNode *) secondBody.node];
     }
     
+    if ((firstBody.categoryBitMask & monsterCategory) != 0 && (secondBody.categoryBitMask & playerCategory) != 0) {
+        [self collisionWithPlayer];
+    }
 }
 
 @end
