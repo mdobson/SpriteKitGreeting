@@ -27,6 +27,7 @@
 		F59AA3741942B1900086ADF6 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = F59AA3711942B1900086ADF6 /* background-music-aac.caf */; };
 		F59AA3751942B1900086ADF6 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = F59AA3721942B1900086ADF6 /* pew-pew-lei.caf */; };
 		F59AA3761942B1900086ADF6 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = F59AA3731942B1900086ADF6 /* sprites.atlas */; };
+		F5C68E871943BC5300B54127 /* MSDGameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C68E861943BC5300B54127 /* MSDGameOverScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		F59AA3711942B1900086ADF6 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		F59AA3721942B1900086ADF6 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		F59AA3731942B1900086ADF6 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		F5C68E851943BC5300B54127 /* MSDGameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDGameOverScene.h; sourceTree = "<group>"; };
+		F5C68E861943BC5300B54127 /* MSDGameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDGameOverScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,8 @@
 				F59AA3501942AE980086ADF6 /* Spaceship.png */,
 				F59AA3521942AE980086ADF6 /* Images.xcassets */,
 				F59AA33C1942AE980086ADF6 /* Supporting Files */,
+				F5C68E851943BC5300B54127 /* MSDGameOverScene.h */,
+				F5C68E861943BC5300B54127 /* MSDGameOverScene.m */,
 			);
 			path = SpriteKitGreeting;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				F59AA3461942AE980086ADF6 /* MSDAppDelegate.m in Sources */,
 				F59AA34C1942AE980086ADF6 /* MSDViewController.m in Sources */,
 				F59AA34F1942AE980086ADF6 /* MSDMyScene.m in Sources */,
+				F5C68E871943BC5300B54127 /* MSDGameOverScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

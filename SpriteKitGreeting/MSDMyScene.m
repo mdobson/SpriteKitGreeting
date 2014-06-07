@@ -7,6 +7,7 @@
 //
 
 #import "MSDMyScene.h"
+#import "MSDGameOverScene.h"
 
 @interface MSDMyScene()
 
@@ -167,6 +168,11 @@ static inline CGPoint rwNormalize(CGPoint a) {
     [projectile removeFromParent];
     [monster removeFromParent];
     self.hitCount++;
+    if (self.hitCount > 5) {
+        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+        SKScene * gameOverScene = [[MSDGameOverScene alloc] initWithSize:self.size won:YES];
+        [self.view presentScene:gameOverScene transition: reveal];
+    }
     self.score.text = [NSString stringWithFormat:@"Score: %i", self.hitCount];
     
 }
@@ -174,6 +180,12 @@ static inline CGPoint rwNormalize(CGPoint a) {
 - (void)collisionWithPlayer {
     NSLog(@"Collided with player");
     self.hitCount--;
+    
+    if (self.hitCount < 0) {
+        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+        SKScene * gameOverScene = [[MSDGameOverScene alloc] initWithSize:self.size won:NO];
+        [self.view presentScene:gameOverScene transition: reveal];
+    }
     self.score.text = [NSString stringWithFormat:@"Score: %i", self.hitCount];
 }
 
@@ -196,5 +208,7 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self collisionWithPlayer];
     }
 }
+
+
 
 @end
